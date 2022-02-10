@@ -770,7 +770,7 @@ void ShapesApp::BuildRenderItems()
 	mAllRitems.push_back(std::move(boxRitem2));
 
 	auto boxRitem3 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem3->World, XMMatrixScaling(1.0f, 1.0f, 1.0f) * XMMatrixTranslation(0.0f, 4.0f, 2.0f));
+	XMStoreFloat4x4(&boxRitem3->World, XMMatrixScaling(50.0f, 1.0f, 50.0f) * XMMatrixTranslation(0.0f, 4.0f, 50.0f));
 	boxRitem3->ObjCBIndex = 2;
 	boxRitem3->Geo = mGeometries["shapeGeo"].get();
 	boxRitem3->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
