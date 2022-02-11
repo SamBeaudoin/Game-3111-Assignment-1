@@ -27,6 +27,7 @@
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
+using namespace std;
 
 //step3: Our application class instantiates a vector of three frame resources, 
 const int gNumFrameResources = 3;
@@ -97,6 +98,8 @@ private:
 	//step5
 	void BuildFrameResources();
 
+	void BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float ZRotation = 0.0f);
+
 	void BuildRenderItems();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
@@ -143,6 +146,8 @@ private:
 	bool mIsWireframe = false;
 
 	XMFLOAT3 mEyePos = { 0.0f, 0.0f, 0.0f };
+	XMFLOAT3 mDeltaPos = { 0.0f, 0.0f, 0.0f };
+
 	XMFLOAT4X4 mView = MathHelper::Identity4x4();
 	XMFLOAT4X4 mProj = MathHelper::Identity4x4();
 
@@ -410,6 +415,14 @@ void ShapesApp::OnKeyboardInput(const GameTimer& gt)
 		mIsWireframe = true;
 	else
 		mIsWireframe = false;
+
+	key = GetAsyncKeyState('W');
+	if (key & 0x8000)  // not sure how to change camera view position just yet
+		mDeltaPos.z += 0.5f;
+
+	key = GetAsyncKeyState('S');
+	if (key & 0x8000)  // not sure how to change camera view position just yet
+		mDeltaPos.z -= 0.5f;
 }
 
 void ShapesApp::UpdateCamera(const GameTimer& gt)
@@ -614,22 +627,40 @@ void ShapesApp::BuildShapeGeometry()
 	//GeometryGenerator is a utility class for generating simple geometric shapes like grids, sphere, cylinders, and boxes
 	GeometryGenerator geoGen;
 	//The MeshData structure is a simple structure nested inside GeometryGenerator that stores a vertex and index list
-	GeometryGenerator::MeshData box = geoGen.CreateBox(2.0f, 2.0f, 2.0f, 3);
+	
+	// Step 1
+	GeometryGenerator::MeshData box = geoGen.CreateBox(1.0f, 1.0f, 1.0f, 3);
 
+	GeometryGenerator::MeshData cylinder = geoGen.CreateCylinder(1.0f, 1.0f, 1.0f, 15, 5);
+
+	GeometryGenerator::MeshData cone = geoGen.CreateCone(1.0f, 1.0f, 15, 5);
+
+	GeometryGenerator::MeshData pyramid = geoGen.CreatePyramid(1.0f, 1.0f, 5);
+
+	GeometryGenerator::MeshData box2 = geoGen.CreateBox(1.0f, 1.0f, 1.0f, 3);
 
 	//
 	// We are concatenating all the geometry into one big vertex/index buffer.  So
 	// define the regions in the buffer each submesh covers.
 	//
 
+	// Step 2
 	// Cache the vertex offsets to each object in the concatenated vertex buffer.
 	UINT boxVertexOffset = 0;
+	UINT cylinderVertexOffset = (UINT)box.Vertices.size();
+	UINT coneVertexOffset = cylinderVertexOffset + (UINT)cylinder.Vertices.size();
+	UINT pyramidVertexOffset = coneVertexOffset + (UINT)cone.Vertices.size();
+	UINT box2VertexOffset = pyramidVertexOffset + (UINT)pyramid.Vertices.size();
 
-
+	// Step 3
 	// Cache the starting index for each object in the concatenated index buffer.
 	UINT boxIndexOffset = 0;
+	UINT cylinderIndexOffset = (UINT)box.Indices32.size();
+	UINT coneIndexOffset = cylinderIndexOffset + (UINT)cylinder.Indices32.size();
+	UINT pyramidIndexOffset = coneIndexOffset + (UINT)cone.Indices32.size();
+	UINT box2IndexOffset = pyramidIndexOffset + (UINT)pyramid.Indices32.size();
 
-
+	// Step 4
 	// Define the SubmeshGeometry that cover different 
 	// regions of the vertex/index buffers.
 
@@ -638,28 +669,83 @@ void ShapesApp::BuildShapeGeometry()
 	boxSubmesh.StartIndexLocation = boxIndexOffset;
 	boxSubmesh.BaseVertexLocation = boxVertexOffset;
 
+	SubmeshGeometry cylinderSubmesh;
+	cylinderSubmesh.IndexCount = (UINT)cylinder.Indices32.size();
+	cylinderSubmesh.StartIndexLocation = cylinderIndexOffset;
+	cylinderSubmesh.BaseVertexLocation = cylinderVertexOffset;
 
-	//
+	SubmeshGeometry coneSubmesh;
+	coneSubmesh.IndexCount = (UINT)cone.Indices32.size();
+	coneSubmesh.StartIndexLocation = coneIndexOffset;
+	coneSubmesh.BaseVertexLocation = coneVertexOffset;
+
+	SubmeshGeometry pyramidSubmesh;
+	pyramidSubmesh.IndexCount = (UINT)pyramid.Indices32.size();
+	pyramidSubmesh.StartIndexLocation = pyramidIndexOffset;
+	pyramidSubmesh.BaseVertexLocation = pyramidVertexOffset;
+
+	SubmeshGeometry box2Submesh;
+	box2Submesh.IndexCount = (UINT)box2.Indices32.size();
+	box2Submesh.StartIndexLocation = box2IndexOffset;
+	box2Submesh.BaseVertexLocation = box2VertexOffset;
+
+
+	// Step 5
 	// Extract the vertex elements we are interested in and pack the
 	// vertices of all the meshes into one vertex buffer.
 	//
 
-	auto totalVertexCount = box.Vertices.size();
+	auto totalVertexCount = 
+		box.Vertices.size() +
+		cylinder.Vertices.size() +
+		cone.Vertices.size() +
+		pyramid.Vertices.size() +
+		box2.Vertices.size();
 
 
+	// Step 6
+	// Add all Vertex and color data into one vector -> vertices
 	std::vector<Vertex> vertices(totalVertexCount);
 
 	UINT k = 0;
 	for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = box.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::DarkOrange);
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::LightCoral);	// Box color
 	}
 
+	for (size_t i = 0; i < cylinder.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = cylinder.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::DarkGoldenrod);	// Cylinder color
+	}
 
+	for (size_t i = 0; i < cone.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = cone.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::HotPink);	// Cone color
+	}
+
+	for (size_t i = 0; i < pyramid.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = pyramid.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::LemonChiffon);	// Pyramid color
+	}
+
+	for (size_t i = 0; i < box2.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = box2.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+	}
+
+	// step 7
+	// Add all Index data into one vector -> indices
 	std::vector<std::uint16_t> indices;
 	indices.insert(indices.end(), std::begin(box.GetIndices16()), std::end(box.GetIndices16()));
-
+	indices.insert(indices.end(), std::begin(cylinder.GetIndices16()), std::end(cylinder.GetIndices16()));
+	indices.insert(indices.end(), std::begin(cone.GetIndices16()), std::end(cone.GetIndices16()));
+	indices.insert(indices.end(), std::begin(pyramid.GetIndices16()), std::end(pyramid.GetIndices16()));
+	indices.insert(indices.end(), std::begin(box2.GetIndices16()), std::end(box2.GetIndices16()));
 
 	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
@@ -684,7 +770,13 @@ void ShapesApp::BuildShapeGeometry()
 	geo->IndexFormat = DXGI_FORMAT_R16_UINT;
 	geo->IndexBufferByteSize = ibByteSize;
 
+	// step 8
+	// Map saved subMesh data into mGeometries for later drawing use
 	geo->DrawArgs["box"] = boxSubmesh;
+	geo->DrawArgs["cylinder"] = cylinderSubmesh;
+	geo->DrawArgs["cone"] = coneSubmesh;
+	geo->DrawArgs["pyramid"] = pyramidSubmesh;
+	geo->DrawArgs["box2"] = box2Submesh;
 
 
 	mGeometries[geo->Name] = std::move(geo);
@@ -745,75 +837,60 @@ void ShapesApp::BuildFrameResources()
 	}
 }
 
-void ShapesApp::BuildRenderItems()
+// Helper function to build any shape objects (Rotation is optional)
+void ShapesApp::BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float ZRotation)
 {
-	//Base
 	auto boxRitem = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(50.0f, 1.0f, 50.0f) * XMMatrixTranslation(49.0f, 0.0f, 49.0f));
-	boxRitem->ObjCBIndex = 0;
+	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(ScaleX, ScaleY, ScaleZ) * 
+		XMMatrixRotationY(ZRotation) *
+	XMMatrixTranslation(OffsetX, OffsetY, OffsetZ));
+	boxRitem->ObjCBIndex = mAllRitems.size();
 	boxRitem->Geo = mGeometries["shapeGeo"].get();
 	boxRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem->IndexCount = boxRitem->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem->StartIndexLocation = boxRitem->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem->BaseVertexLocation = boxRitem->Geo->DrawArgs["box"].BaseVertexLocation; //0
+	boxRitem->IndexCount = boxRitem->Geo->DrawArgs[shapeName].IndexCount;  //36
+	boxRitem->StartIndexLocation = boxRitem->Geo->DrawArgs[shapeName].StartIndexLocation; //0
+	boxRitem->BaseVertexLocation = boxRitem->Geo->DrawArgs[shapeName].BaseVertexLocation; //0
 	mAllRitems.push_back(std::move(boxRitem));
+}
 
-	// boxRitem increase by 1
-	// ObjCBIndex increase by 1
-	//Frontwall1
-	auto boxRitem2 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem2->World, XMMatrixScaling(20.0f, 1.0f, 1.0f) * XMMatrixTranslation(19.0f, 2.0f, 0.0f));
-	boxRitem2->ObjCBIndex = 1;
-	boxRitem2->Geo = mGeometries["shapeGeo"].get();
-	boxRitem2->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem2->IndexCount = boxRitem2->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem2->StartIndexLocation = boxRitem2->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem2->BaseVertexLocation = boxRitem2->Geo->DrawArgs["box"].BaseVertexLocation; //0
-	mAllRitems.push_back(std::move(boxRitem2));
+void ShapesApp::BuildRenderItems()
+{
+	// use "box", "box2", "cylinder", "cone", or "pyramid" for different shapes
+	// last Param: ZRoation is optional
 
-	//Frontwall2
-	auto boxRitem3 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem3->World, XMMatrixScaling(20.0f, 1.0f, 1.0f) * XMMatrixTranslation(79.0f, 2.0f, 0.0f));
-	boxRitem3->ObjCBIndex = 2;
-	boxRitem3->Geo = mGeometries["shapeGeo"].get();
-	boxRitem3->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem3->IndexCount = boxRitem3->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem3->StartIndexLocation = boxRitem3->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem3->BaseVertexLocation = boxRitem3->Geo->DrawArgs["box"].BaseVertexLocation; //0
-	mAllRitems.push_back(std::move(boxRitem3));
+	//Base
+	BuildShape("box",20.0f, 1.0f, 20.0f, 0.0f, 0.0f, 0.0f);
 
-	//LeftWall
-	auto boxRitem4 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem4->World, XMMatrixScaling(1.0f, 1.0f, 50.0f) * XMMatrixTranslation(0.0f, 2.0f, 49.0f));
-	boxRitem4->ObjCBIndex = 3;
-	boxRitem4->Geo = mGeometries["shapeGeo"].get();
-	boxRitem4->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem4->IndexCount = boxRitem4->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem4->StartIndexLocation = boxRitem4->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem4->BaseVertexLocation = boxRitem4->Geo->DrawArgs["box"].BaseVertexLocation; //0
-	mAllRitems.push_back(std::move(boxRitem4));
+	// Front wall 1
+	BuildShape("box", 8.0f, 5.0f, 1.0f, -6.0f, 3.0f, -9.5f);
+	// Front wall 2
+	BuildShape("box", 8.0f, 5.0f, 1.0f, 6.0f, 3.0f, -9.5f);
+	// Left wall
+	BuildShape("box", 1.0f, 5.0f, 20.0f, -9.5f, 3.0f, 0.0f);
+	// Back wall
+	BuildShape("box", 20.0f, 5.0f, 1.0f, 0.0f, 3.0f, 9.5f);
+	// Right wall
+	BuildShape("box", 1.0f, 5.0f, 20.0f, 9.5f, 3.0f, 0.0f);
 
-	//BackWall
-	auto boxRitem5 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem5->World, XMMatrixScaling(50.0f, 1.0f, 1.0f) * XMMatrixTranslation(49.0f, 2.0f, 98.0f));
-	boxRitem5->ObjCBIndex = 4;
-	boxRitem5->Geo = mGeometries["shapeGeo"].get();
-	boxRitem5->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem5->IndexCount = boxRitem5->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem5->StartIndexLocation = boxRitem5->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem5->BaseVertexLocation = boxRitem5->Geo->DrawArgs["box"].BaseVertexLocation; //0
-	mAllRitems.push_back(std::move(boxRitem5));
+	// Inner Building
+	BuildShape("box2", 6.0f, 7.0f, 8.0f, -5.0f, 4.0f, 0.0f);
+	// Inner Building Roof
+	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 11.8f);
 
-	//RightWall
-	auto boxRitem6 = std::make_unique<RenderItem>();
-	XMStoreFloat4x4(&boxRitem6->World, XMMatrixScaling(1.0f, 1.0f, 50.0f) * XMMatrixTranslation(98.0f, 2.0f, 49.0f));
-	boxRitem6->ObjCBIndex = 5;
-	boxRitem6->Geo = mGeometries["shapeGeo"].get();
-	boxRitem6->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	boxRitem6->IndexCount = boxRitem6->Geo->DrawArgs["box"].IndexCount;  //36
-	boxRitem6->StartIndexLocation = boxRitem6->Geo->DrawArgs["box"].StartIndexLocation; //0
-	boxRitem6->BaseVertexLocation = boxRitem6->Geo->DrawArgs["box"].BaseVertexLocation; //0
-	mAllRitems.push_back(std::move(boxRitem6));
+	// Towers
+	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, -9.5f, 4.5f, -9.5f);
+	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, 9.5f, 4.5f, -9.5f);
+	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, -9.5f, 4.5f, 9.5f);
+	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, 9.5f, 4.5f, 9.5f);
+
+	// Tower Toppers
+	BuildShape("cone", 3.0f, 3.0f, 3.0f, 9.5f, 11.0f, 9.5f);
+	BuildShape("cone", 3.0f, 3.0f, 3.0f, -9.5f, 11.0f, 9.5f);
+	BuildShape("cone", 3.0f, 3.0f, 3.0f, 9.5f, 11.0f, -9.5f);
+	BuildShape("cone", 3.0f, 3.0f, 3.0f, -9.5f, 11.0f, -9.5f);
+
+	// Gate Decal
+	BuildShape("box2", 4.0f, 1.0f, 6.0f, 0.0f, 0.0f, -13.0f);
 
 
 	// All the render items are opaque.

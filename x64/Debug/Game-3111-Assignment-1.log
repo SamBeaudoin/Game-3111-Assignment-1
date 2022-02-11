@@ -1,2 +1,3 @@
 ﻿  Week4-1-BoxUsingFrameResources.cpp
-  Game-3111-Assignment-1.vcxproj -> C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(847,42): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+  Game-3111-Assignment-1.vcxproj -> E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
