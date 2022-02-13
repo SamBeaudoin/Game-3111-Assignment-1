@@ -99,6 +99,10 @@ public:
 	///</summary>
     MeshData CreateCylinder(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 
+	MeshData CreateWedge(float width, float height, float depth, uint32 numSubdivisions);
+
+	
+
 	///<summary>
 	/// Using create cylinder we can create a cone by making one of the Radii equal to zero
 	/// in this case we make the topRadius equal to 0 so we have an upwards pointing cone
@@ -111,6 +115,8 @@ public:
 	/// square base pyramid with it's point facing upwards
 	///</summary>
 	MeshData CreatePyramid(float bottomRadius, float height, uint32 stackCount);
+
+	MeshData CreateDiamond(float bottomRadius, float height, uint32 stackCount);
 
 	///<summary>
 	/// Creates an mxn grid in the xz-plane with m rows and n columns, centered
