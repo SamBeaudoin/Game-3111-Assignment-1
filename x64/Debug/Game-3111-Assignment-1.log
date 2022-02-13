@@ -1,3 +1,180 @@
-﻿  Week4-1-BoxUsingFrameResources.cpp
-E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(847,42): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-  Game-3111-Assignment-1.vcxproj -> E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
+﻿  Camera.cpp
+  d3dApp.cpp
+  d3dUtil.cpp
+  DDSTextureLoader.cpp
+  GameTimer.cpp
+  GeometryGenerator.cpp
+  MathHelper.cpp
+  Week4-1-BoxUsingFrameResources.cpp
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(50,5): error C2011: 'DirectX::DDS_ALPHA_MODE': 'enum' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(49): message : see declaration of 'DirectX::DDS_ALPHA_MODE'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(64,63): error C2572: 'DirectX::CreateDDSTextureFromMemory': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(59): message : see declaration of 'DirectX::CreateDDSTextureFromMemory'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(65,79): error C2572: 'DirectX::CreateDDSTextureFromMemory': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(59): message : see declaration of 'DirectX::CreateDDSTextureFromMemory'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(74,58): error C2572: 'DirectX::CreateDDSTextureFromMemory12': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(68): message : see declaration of 'DirectX::CreateDDSTextureFromMemory12'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(75,74): error C2572: 'DirectX::CreateDDSTextureFromMemory12': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(68): message : see declaration of 'DirectX::CreateDDSTextureFromMemory12'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(82,61): error C2572: 'DirectX::CreateDDSTextureFromFile': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(78): message : see declaration of 'DirectX::CreateDDSTextureFromFile'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(83,77): error C2572: 'DirectX::CreateDDSTextureFromFile': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(78): message : see declaration of 'DirectX::CreateDDSTextureFromFile'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(91,56): error C2572: 'DirectX::CreateDDSTextureFromFile12': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(86): message : see declaration of 'DirectX::CreateDDSTextureFromFile12'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(92,72): error C2572: 'DirectX::CreateDDSTextureFromFile12': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(86): message : see declaration of 'DirectX::CreateDDSTextureFromFile12'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(102,63): error C2572: 'DirectX::CreateDDSTextureFromMemory': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(96): message : see declaration of 'DirectX::CreateDDSTextureFromMemory'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(103,79): error C2572: 'DirectX::CreateDDSTextureFromMemory': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(96): message : see declaration of 'DirectX::CreateDDSTextureFromMemory'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(111,61): error C2572: 'DirectX::CreateDDSTextureFromFile': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(106): message : see declaration of 'DirectX::CreateDDSTextureFromFile'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(112,77): error C2572: 'DirectX::CreateDDSTextureFromFile': redefinition of default argument: parameter 2
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(106): message : see declaration of 'DirectX::CreateDDSTextureFromFile'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(127,81): error C2572: 'DirectX::CreateDDSTextureFromMemoryEx': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(116): message : see declaration of 'DirectX::CreateDDSTextureFromMemoryEx'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(140,79): error C2572: 'DirectX::CreateDDSTextureFromFileEx': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(130): message : see declaration of 'DirectX::CreateDDSTextureFromFileEx'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(156,81): error C2572: 'DirectX::CreateDDSTextureFromMemoryEx': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(144): message : see declaration of 'DirectX::CreateDDSTextureFromMemoryEx'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\DDSTextureLoader.h(170,79): error C2572: 'DirectX::CreateDDSTextureFromFileEx': redefinition of default argument: parameter 1
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\DDSTextureLoader.h(159): message : see declaration of 'DirectX::CreateDDSTextureFromFileEx'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\MathHelper.h(14,1): error C2011: 'MathHelper': 'class' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(30,13): error C2084: function 'void d3dSetDebugName(IDXGIObject *,const char *)' already has a body
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(30): message : see previous definition of 'd3dSetDebugName'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(37,13): error C2084: function 'void d3dSetDebugName(ID3D12Device *,const char *)' already has a body
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(37): message : see previous definition of 'd3dSetDebugName'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(44,13): error C2084: function 'void d3dSetDebugName(ID3D12DeviceChild *,const char *)' already has a body
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(44): message : see previous definition of 'd3dSetDebugName'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(52,21): error C2084: function 'std::wstring AnsiToWString(const std::string &)' already has a body
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(52): message : see previous definition of 'AnsiToWString'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(88,1): error C2011: 'd3dUtil': 'class' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(87): message : see declaration of 'd3dUtil'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(128,1): error C2011: 'DxException': 'class' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(146,1): error C2011: 'SubmeshGeometry': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(145): message : see declaration of 'SubmeshGeometry'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(158,1): error C2011: 'MeshGeometry': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(156): message : see declaration of 'MeshGeometry'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(244,1): error C2011: 'Light': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(243): message : see declaration of 'Light'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(256,1): error C2011: 'MaterialConstants': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(255): message : see declaration of 'MaterialConstants'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(268,1): error C2011: 'Material': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(267): message : see declaration of 'Material'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\d3dUtil.h(295,1): error C2011: 'Texture': 'struct' type redefinition
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(294): message : see declaration of 'Texture'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\UploadBuffer.h(64,2): error C2953: 'UploadBuffer': class template has already been defined
+E:\School Stuff\Game-W2022\Graphics\DirectX\Common\UploadBuffer.h(6): message : see declaration of 'UploadBuffer'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(9,45): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(9,31): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(14,44): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(14,30): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(15,47): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(15,33): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(16,44): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(16,30): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(17,47): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(17,33): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(18,48): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(18,34): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(19,51): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(19,37): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(59,21): error C3203: 'UploadBuffer': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(60,21): error C3203: 'UploadBuffer': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(43,33): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(43,19): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(151,33): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(151,19): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(152,33): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(152,19): error C3861: 'Identity4x4': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(179,24): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(179,64): error C2660: 'MessageBoxW': function does not take 3 arguments
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : see declaration of 'MessageBoxW'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(177,2): error C2316: 'DxException &': cannot be caught as the destructor and/or copy constructor are inaccessible or deleted
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(201,2): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(201,2): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(201,2): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(201,2): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(213,2): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(213,2): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(213,2): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(213,2): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(228,60): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(228,62): error C2065: 'Pi': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(255,3): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(255,3): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(255,3): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(255,3): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(273,2): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(273,2): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(273,2): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(273,2): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(279,3): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(279,3): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(279,3): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(279,3): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(283,3): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(283,3): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(283,3): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(283,3): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(317,2): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(317,2): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(317,2): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(317,2): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(324,2): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(324,2): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(324,2): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(324,2): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(383,22): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(383,52): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(383,55): error C2065: 'Pi': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(383,27): error C3861: 'Clamp': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(395,25): error C2027: use of undefined type 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\MathHelper.h(13): message : see declaration of 'MathHelper'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(395,30): error C3861: 'Clamp': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(513,1): error C2065: 'AnsiToWString': undeclared identifier
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(513,1): error C2440: 'initializing': cannot convert from 'std::wstring (__cdecl *)(const std::string &)' to 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(514,1): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(513,1): error C2027: use of undefined type 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(127): message : see declaration of 'DxException'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(519,32): error C2027: use of undefined type 'd3dUtil'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(87): message : see declaration of 'd3dUtil'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(519,58): error C3861: 'CalcConstantBufferByteSize': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(526,46): error C2839: invalid return type 'int *' for overloaded 'operator ->'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(526,58): error C2039: 'Resource': is not a member of 'std::unique_ptr<int,std::default_delete<int>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(59): message : see declaration of 'std::unique_ptr<int,std::default_delete<int>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(529,50): error C3536: 'objectCB': cannot be used before it is initialized
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(547,33): error C2027: use of undefined type 'd3dUtil'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\d3dUtil.h(87): message : see declaration of 'd3dUtil'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(547,59): error C3861: 'CalcConstantBufferByteSize': identifier not found
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(552,44): error C2839: invalid return type 'int *' for overloaded 'operator ->'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(552,54): error C2039: 'Resource': is not a member of 'std::unique_ptr<int,std::default_delete<int>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\FrameResource.h(59): message : see declaration of 'std::unique_ptr<int,std::default_delete<int>>'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(553,47): error C3536: 'passCB': cannot be used before it is initialized
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(553,47): fatal error C1003: error count exceeds 100; stopping compilation
+  Generating Code...
