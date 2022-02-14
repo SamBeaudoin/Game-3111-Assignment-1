@@ -101,7 +101,10 @@ public:
 
 	MeshData CreateWedge(float width, float height, float depth, uint32 numSubdivisions);
 
-	
+
+	MeshData CreatePipe(float topRadius, float bottomRadius, float height, uint32 sliceCount, uint32 stackCount);
+
+	MeshData CreateDiamond(float radius, float height, float depth, uint32 numSubdivisions);
 
 	///<summary>
 	/// Using create cylinder we can create a cone by making one of the Radii equal to zero
@@ -116,7 +119,6 @@ public:
 	///</summary>
 	MeshData CreatePyramid(float bottomRadius, float height, uint32 stackCount);
 
-	MeshData CreateDiamond(float bottomRadius, float height, uint32 stackCount);
 
 	MeshData CreateTrianglePrism(float bottomRadius, float height, uint32 stackCount);
 
@@ -136,5 +138,7 @@ private:
     Vertex MidPoint(const Vertex& v0, const Vertex& v1);
     void BuildCylinderTopCap(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
     void BuildCylinderBottomCap(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
+	void BuildInnerPipe(float topRadius, float bottomRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
+
 };
 

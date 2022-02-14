@@ -1,3 +1,4 @@
-﻿  Week4-1-BoxUsingFrameResources.cpp
-C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(906,42): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-  Game-3111-Assignment-1.vcxproj -> C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
+﻿  GeometryGenerator.cpp
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\GeometryGenerator.cpp(718,20): warning C4305: '=': truncation from 'double' to 'float'
+E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Common\GeometryGenerator.cpp(719,17): warning C4305: '=': truncation from 'double' to 'float'
+  Game-3111-Assignment-1.vcxproj -> E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe

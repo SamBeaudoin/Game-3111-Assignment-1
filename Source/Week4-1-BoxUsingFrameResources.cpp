@@ -641,9 +641,11 @@ void ShapesApp::BuildShapeGeometry()
 
 	GeometryGenerator::MeshData wedge = geoGen.CreateWedge(1.0f, 1.0f, 1.0f, 3);
 
-	GeometryGenerator::MeshData diamond = geoGen.CreateDiamond(1.0f, 1.0f, 1);
+	GeometryGenerator::MeshData diamond = geoGen.CreateDiamond(1.0f, 1.0f, 1.0f, 3);
 
 	GeometryGenerator::MeshData flag = geoGen.CreateTrianglePrism(1.0f, 1.0f, 3);
+
+	GeometryGenerator::MeshData pipe = geoGen.CreatePipe(1.0f, 1.0f, 1.0f, 15, 5);
 
 	//
 	// We are concatenating all the geometry into one big vertex/index buffer.  So
@@ -660,6 +662,7 @@ void ShapesApp::BuildShapeGeometry()
 	UINT wedgeVertexOffset = box2VertexOffset + (UINT)box2.Vertices.size();
 	UINT diamondVertexOffset = wedgeVertexOffset + (UINT)wedge.Vertices.size();
 	UINT flagVertexOffset = diamondVertexOffset + (UINT)diamond.Vertices.size();
+	UINT pipeVertexOffset = flagVertexOffset + (UINT)flag.Vertices.size();
 	
 
 	// Step 3
@@ -672,6 +675,7 @@ void ShapesApp::BuildShapeGeometry()
 	UINT wedgeIndexOffset = box2IndexOffset + (UINT)box2.Indices32.size();
 	UINT diamondIndexOffset = wedgeIndexOffset + (UINT)wedge.Indices32.size();
 	UINT flagIndexOffset = diamondIndexOffset + (UINT)diamond.Indices32.size();
+	UINT pipeIndexOffset = flagIndexOffset + (UINT)flag.Indices32.size();
 	
 
 	// Step 4
@@ -718,6 +722,11 @@ void ShapesApp::BuildShapeGeometry()
 	flagSubmesh.StartIndexLocation = flagIndexOffset;
 	flagSubmesh.BaseVertexLocation = flagVertexOffset;
 
+	SubmeshGeometry pipeSubmesh;
+	pipeSubmesh.IndexCount = (UINT)pipe.Indices32.size();
+	pipeSubmesh.StartIndexLocation = pipeIndexOffset;
+	pipeSubmesh.BaseVertexLocation = pipeVertexOffset;
+
 
 	// Step 5
 	// Extract the vertex elements we are interested in and pack the
@@ -732,7 +741,8 @@ void ShapesApp::BuildShapeGeometry()
 		box2.Vertices.size() +
 		wedge.Vertices.size() +
 		diamond.Vertices.size() +
-		flag.Vertices.size();
+		flag.Vertices.size() +
+		pipe.Vertices.size();
 
 
 	// Step 6
@@ -767,25 +777,31 @@ void ShapesApp::BuildShapeGeometry()
 	for (size_t i = 0; i < box2.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = box2.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Box2 color
 	}
 
 	for (size_t i = 0; i < wedge.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = wedge.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Wedge color
 	}
 
 	for (size_t i = 0; i < diamond.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = diamond.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::SteelBlue);	// Diamond color
 	}
 
 	for (size_t i = 0; i < flag.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = flag.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Flag color
+	}
+
+	for (size_t i = 0; i < pipe.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = pipe.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::MediumPurple);	// Pipe color
 	}
 
 	
@@ -801,6 +817,7 @@ void ShapesApp::BuildShapeGeometry()
 	indices.insert(indices.end(), std::begin(wedge.GetIndices16()), std::end(wedge.GetIndices16()));
 	indices.insert(indices.end(), std::begin(diamond.GetIndices16()), std::end(diamond.GetIndices16()));
 	indices.insert(indices.end(), std::begin(flag.GetIndices16()), std::end(flag.GetIndices16()));
+	indices.insert(indices.end(), std::begin(pipe.GetIndices16()), std::end(pipe.GetIndices16()));
 
 	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
@@ -835,6 +852,7 @@ void ShapesApp::BuildShapeGeometry()
 	geo->DrawArgs["wedge"] = wedgeSubmesh;
 	geo->DrawArgs["diamond"] = diamondSubmesh;
 	geo->DrawArgs["flag"] = flagSubmesh;
+	geo->DrawArgs["pipe"] = pipeSubmesh;
 	
 
 
@@ -932,9 +950,9 @@ void ShapesApp::BuildRenderItems()
 	BuildShape("box", 1.0f, 5.0f, 20.0f, 9.5f, 3.0f, 0.0f);
 
 	// Inner Building
-	BuildShape("box2", 6.0f, 7.0f, 8.0f, -5.0f, 4.0f, 0.0f);
+	BuildShape("box2", 6.0f, 7.0f, 6.0f, -5.0f, 4.0f, 0.0f);
 	// Inner Building Roof
-	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 0.0f);
+	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 0.0f, 3.95f, 0.0f);
 
 	
 
@@ -953,50 +971,46 @@ void ShapesApp::BuildRenderItems()
 	// Gate Decal
 	BuildShape("box2", 4.0f, 1.0f, 6.0f, 0.0f, 0.0f, -13.0f);
 	
+	// Stairs
 	BuildShape("wedge", 8.0f, 5.25f, 1.0f, 0.0f, 3.0f, 8.5f, 22.0);
 
-	//Fense
-	/*BuildShape("box", 9.0f, 1.0f, 1.0f, -8.0f, 3.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -11.5f, 1.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -4.0f, 1.0f, -20.0f);
+	// Fence Vertical
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -9.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -8.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -7.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -6.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -5.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -4.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 2.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 3.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 4.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 5.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 6.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 7.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 8.0f, 1.0f, -3.0f);
+	BuildShape("box2", 0.2f, 1.0f, 0.2f, 9.0f, 1.0f, -3.0f);
 
-	BuildShape("box", 9.0f, 1.0f, 1.0f, 8.0f, 3.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 11.5f, 1.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 4.0f, 1.0f, -20.0f);
 
-	BuildShape("box", 1.0f, 1.0f, 41.0f, 13.0f, 3.0f, 0.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 5.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -18.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -12.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -6.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 0.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 6.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 12.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 18.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 5.0f, 20.0f);
+	// Fence Horizontal
+	BuildShape("box2", 0.2f, 0.2f, 6.0f, 2.0f, 1.0f, -6.0f);
+	BuildShape("box2", 7.0f, 0.2f, 0.2f, 5.5f, 1.0f, -3.0f);
+	
+	// Fence Decals
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 2.0f, 2.0f, -8.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 2.0f, 2.0f, -6.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 2.0f, 2.0f, -4.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 3.0f, 2.0f, -3.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 5.0f, 2.0f, -3.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 7.0f, 2.0f, -3.0f);
+	BuildShape("diamond", 0.2f, 0.2f, 0.2f, 7.0f, 2.0f, -3.0f);
 
-	BuildShape("box", 1.0f, 1.0f, 41.0f, -13.0f, 3.0f, 0.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 5.0f, -20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -18.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -12.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -6.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 0.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 6.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 12.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 18.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 5.0f, 20.0f);
+	// Well
+	BuildShape("box2", 4.0f, 0.5f, 4.0f, 5.5f, 1.0f, -6.0f);
+	BuildShape("pipe", 1.4f, 0.5f, 1.4f, 5.5f, 1.5f, -6.0f);
+	BuildShape("pipe", 1.2f, 0.5f, 1.2f, 5.5f, 1.5f, -6.0f);
+	BuildShape("pipe", 1.0f, 0.5f, 1.0f, 5.5f, 1.5f, -6.0f);
+	BuildShape("pipe", 0.8f, 0.5f, 0.8f, 5.5f, 1.5f, -6.0f);
 
-	BuildShape("box", 25.0f, 1.0f, 1.0f, 0.0f, 3.0f, 20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -10.0f, 1.0f, 20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, -5.0f, 1.0f, 20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 0.0f, 1.0f, 20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 5.0f, 1.0f, 20.0f);
-	BuildShape("box", 0.5f, 3.0f, 0.5f, 10.0f, 1.0f, 20.0f);*/
-
-	BuildShape("diamond", 1.0f, 1.0f, 1.0f, -13.0f, 7.5f, -20.0f, 4.7f, 0.0f, 0.0f);
-	BuildShape("diamond", 1.0f, 1.0f, 1.0f, -13.0f, 7.5f, 20.0f, 4.7f, 0.0f, 0.0f);
-	BuildShape("diamond", 1.0f, 1.0f, 1.0f, 13.0f, 7.5f, -20.0f, 4.7f, 0.0f, 0.0f);
-	BuildShape("diamond", 1.0f, 1.0f, 1.0f, 13.0f, 7.5f, 20.0f, 4.7f, 0.0f, 0.0f);
 
 	//Flagpole
 	BuildShape("cylinder", 1.0f, 1.0f, 1.0f, 5.0f, 1.0f, 0.0f);
