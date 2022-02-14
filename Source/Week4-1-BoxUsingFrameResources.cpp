@@ -783,7 +783,7 @@ void ShapesApp::BuildShapeGeometry()
 	for (size_t i = 0; i < wedge.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = wedge.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Wedge color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Lavender);	// Wedge color
 	}
 
 	for (size_t i = 0; i < diamond.Vertices.size(); ++i, ++k)
@@ -795,7 +795,7 @@ void ShapesApp::BuildShapeGeometry()
 	for (size_t i = 0; i < flag.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = flag.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Flag color
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::PeachPuff);	// Flag color
 	}
 
 	for (size_t i = 0; i < pipe.Vertices.size(); ++i, ++k)
@@ -954,8 +954,6 @@ void ShapesApp::BuildRenderItems()
 	// Inner Building Roof
 	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 0.0f, 3.95f, 0.0f);
 
-	
-
 	// Towers
 	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, -9.5f, 4.5f, -9.5f);
 	BuildShape("cylinder", 2.0f, 10.0f, 2.0f, 9.5f, 4.5f, -9.5f);
@@ -990,7 +988,6 @@ void ShapesApp::BuildRenderItems()
 	BuildShape("box2", 0.2f, 1.0f, 0.2f, 8.0f, 1.0f, -3.0f);
 	BuildShape("box2", 0.2f, 1.0f, 0.2f, 9.0f, 1.0f, -3.0f);
 
-
 	// Fence Horizontal
 	BuildShape("box2", 0.2f, 0.2f, 6.0f, 2.0f, 1.0f, -6.0f);
 	BuildShape("box2", 7.0f, 0.2f, 0.2f, 5.5f, 1.0f, -3.0f);
@@ -1007,10 +1004,6 @@ void ShapesApp::BuildRenderItems()
 	// Well
 	BuildShape("box2", 4.0f, 0.5f, 4.0f, 5.5f, 1.0f, -6.0f);
 	BuildShape("pipe", 1.4f, 0.5f, 1.4f, 5.5f, 1.5f, -6.0f);
-	BuildShape("pipe", 1.2f, 0.5f, 1.2f, 5.5f, 1.5f, -6.0f);
-	BuildShape("pipe", 1.0f, 0.5f, 1.0f, 5.5f, 1.5f, -6.0f);
-	BuildShape("pipe", 0.8f, 0.5f, 0.8f, 5.5f, 1.5f, -6.0f);
-
 
 	//Flagpole
 	BuildShape("cylinder", 1.0f, 1.0f, 1.0f, 5.0f, 1.0f, 0.0f);

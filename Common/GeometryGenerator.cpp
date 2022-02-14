@@ -715,14 +715,15 @@ void GeometryGenerator::BuildInnerPipe(float topRadius, float bottomRadius, floa
 {
 	float stackHeight = height / stackCount;
 
-	bottomRadius = 0.2;
-	topRadius = 0.3;
+	bottomRadius *= 0.5f;
+	topRadius *= 0.5f;
 
 	// Amount to increment radius as we move up each stack level from bottom to top.
 	float radiusStep = (topRadius - bottomRadius) / stackCount;
 
 	uint32 ringCount = stackCount + 1;
 
+	uint32 indexOffset = meshData.Vertices.size();
 
 	// Compute vertices for each stack ring starting at the bottom and moving up.
 	for (uint32 i = 0; i < ringCount; ++i)
@@ -763,19 +764,111 @@ void GeometryGenerator::BuildInnerPipe(float topRadius, float bottomRadius, floa
 	// since the texture coordinates are different.
 	uint32 ringVertexCount = sliceCount + 1;
 
+	
+
 	// Compute indices for each stack.
 	for (uint32 i = 0; i < stackCount; ++i)
 	{
 		for (uint32 j = 0; j < sliceCount; ++j)
 		{
-			meshData.Indices32.push_back((i + 1) * ringVertexCount + j + 1);
-			meshData.Indices32.push_back((i + 1) * ringVertexCount + j);
-			meshData.Indices32.push_back(i * ringVertexCount + j);
+			meshData.Indices32.push_back((i + 1) * ringVertexCount + j + 1+indexOffset);
+			meshData.Indices32.push_back((i + 1) * ringVertexCount + j + indexOffset);
+			meshData.Indices32.push_back(i * ringVertexCount + j + indexOffset);
 
-			meshData.Indices32.push_back(i * ringVertexCount + j + 1);
-			meshData.Indices32.push_back((i + 1) * ringVertexCount + j + 1);
-			meshData.Indices32.push_back(i * ringVertexCount + j);
+			meshData.Indices32.push_back(i * ringVertexCount + j + 1 + indexOffset);
+			meshData.Indices32.push_back((i + 1) * ringVertexCount + j + 1 + indexOffset);
+			meshData.Indices32.push_back(i * ringVertexCount + j + indexOffset);
 		}
+	}
+	BuildPipeTopCap(topRadius, height, sliceCount, meshData);
+	BuildPipeBottomCap(bottomRadius, height, sliceCount, meshData);
+}
+
+void GeometryGenerator::BuildPipeTopCap(float topRadius, float height, uint32 sliceCount, MeshData& meshData)
+{
+	float outsideRadius = topRadius * 2;
+	float y = height/2;
+	uint32 indexOffset = meshData.Vertices.size();
+	// vertices of middle points
+	float dTheta = 2.0f * XM_PI / sliceCount;
+
+	// Vertex Data
+	for (uint32 i = 0; i <= sliceCount; ++i)
+	{
+		// Inner Rim Points
+		float x = topRadius * cosf(i * dTheta);
+		float z = topRadius * sinf(i * dTheta);
+
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		meshData.Vertices.push_back(Vertex(x, y, z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, u, v));
+		
+		// Outer Rim Points
+		x = outsideRadius * cosf(i * dTheta);
+		z = outsideRadius * sinf(i * dTheta);
+
+		u = x / height + 0.5f;
+		v = z / height + 0.5f;
+
+		meshData.Vertices.push_back(Vertex(x, y, z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, u, v));
+
+	}
+
+	// Indides Data
+	for (uint32 i = 0; i < sliceCount; ++i)
+	{
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)));
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)) - 1);
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)) - 2);
+
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1) - 1));
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)));
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1) + 1));
+	}
+}
+
+void GeometryGenerator::BuildPipeBottomCap(float bottomRadius, float height, uint32 sliceCount, MeshData& meshData)
+{
+	float outsideRadius = bottomRadius * 2;
+	float y = -height/2;
+	uint32 indexOffset = meshData.Vertices.size();
+	// vertices of middle points
+	float dTheta = 2.0f * XM_PI / sliceCount;
+
+	// Vertex Data
+	for (uint32 i = 0; i <= sliceCount; ++i)
+	{
+		// Inner Rim Points
+		float x = bottomRadius * cosf(i * dTheta);
+		float z = bottomRadius * sinf(i * dTheta);
+
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		meshData.Vertices.push_back(Vertex(x, y, z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, u, v));
+
+		// Outer Rim Points
+		x = outsideRadius * cosf(i * dTheta);
+		z = outsideRadius * sinf(i * dTheta);
+
+		u = x / height + 0.5f;
+		v = z / height + 0.5f;
+
+		meshData.Vertices.push_back(Vertex(x, y, z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, u, v));
+
+	}
+
+	// Indides Data
+	for (uint32 i = 0; i < sliceCount; ++i)
+	{
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)) - 2);
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)) - 1);
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)));
+
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1) + 1));
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1)));
+		meshData.Indices32.push_back(indexOffset + (2 * (i + 1) - 1));
 	}
 }
 

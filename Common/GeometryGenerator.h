@@ -99,11 +99,21 @@ public:
 	///</summary>
     MeshData CreateCylinder(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 
+	///<summary>
+	/// By eliminating 2 corners of a cube and rerouting the indices we can create a wedge
+	///</summary>
 	MeshData CreateWedge(float width, float height, float depth, uint32 numSubdivisions);
 
-
+	///<summary>
+	/// Much like createCylinder except we create a second inverted cylinder of half the 
+	/// radius in the first, and then using these two radii we can create a top and
+	/// bottom cap
+	///</summary>
 	MeshData CreatePipe(float topRadius, float bottomRadius, float height, uint32 sliceCount, uint32 stackCount);
-
+	
+	///<summary>
+	/// By Drawing two pyramids on top of each other we can create a Diamond
+	///</summary>
 	MeshData CreateDiamond(float radius, float height, float depth, uint32 numSubdivisions);
 
 	///<summary>
@@ -119,7 +129,9 @@ public:
 	///</summary>
 	MeshData CreatePyramid(float bottomRadius, float height, uint32 stackCount);
 
-
+	///<summary>
+	/// By modifying CreateCylinder's Slice count we can create a Triangular Prism
+	///</summary>
 	MeshData CreateTrianglePrism(float bottomRadius, float height, uint32 stackCount);
 
 	///<summary>
@@ -139,6 +151,6 @@ private:
     void BuildCylinderTopCap(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
     void BuildCylinderBottomCap(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
 	void BuildInnerPipe(float topRadius, float bottomRadius, float height, uint32 sliceCount, uint32 stackCount, MeshData& meshData);
-
+	void BuildPipeTopCap(float topRadius, float height, uint32 sliceCount, MeshData& meshData);
+	void BuildPipeBottomCap(float bottomRadius, float height, uint32 sliceCount, MeshData& meshData);
 };
-
