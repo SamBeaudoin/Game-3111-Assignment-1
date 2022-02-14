@@ -98,7 +98,7 @@ private:
 	//step5
 	void BuildFrameResources();
 
-	void BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float ZRotation = 0.0f);
+	void BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float xRotaion = 0.0f, float yRotation = 0.0f, float ZRotation = 0.0f);
 
 	void BuildRenderItems();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
@@ -643,6 +643,8 @@ void ShapesApp::BuildShapeGeometry()
 
 	GeometryGenerator::MeshData diamond = geoGen.CreateDiamond(1.0f, 1.0f, 1);
 
+	GeometryGenerator::MeshData flag = geoGen.CreateTrianglePrism(1.0f, 1.0f, 3);
+
 	//
 	// We are concatenating all the geometry into one big vertex/index buffer.  So
 	// define the regions in the buffer each submesh covers.
@@ -657,6 +659,7 @@ void ShapesApp::BuildShapeGeometry()
 	UINT box2VertexOffset = pyramidVertexOffset + (UINT)pyramid.Vertices.size();
 	UINT wedgeVertexOffset = box2VertexOffset + (UINT)box2.Vertices.size();
 	UINT diamondVertexOffset = wedgeVertexOffset + (UINT)wedge.Vertices.size();
+	UINT flagVertexOffset = diamondVertexOffset + (UINT)diamond.Vertices.size();
 	
 
 	// Step 3
@@ -668,6 +671,7 @@ void ShapesApp::BuildShapeGeometry()
 	UINT box2IndexOffset = pyramidIndexOffset + (UINT)pyramid.Indices32.size();
 	UINT wedgeIndexOffset = box2IndexOffset + (UINT)box2.Indices32.size();
 	UINT diamondIndexOffset = wedgeIndexOffset + (UINT)wedge.Indices32.size();
+	UINT flagIndexOffset = diamondIndexOffset + (UINT)diamond.Indices32.size();
 	
 
 	// Step 4
@@ -709,6 +713,11 @@ void ShapesApp::BuildShapeGeometry()
 	diamondSubmesh.StartIndexLocation = diamondIndexOffset;
 	diamondSubmesh.BaseVertexLocation = diamondVertexOffset;
 
+	SubmeshGeometry flagSubmesh;
+	flagSubmesh.IndexCount = (UINT)flag.Indices32.size();
+	flagSubmesh.StartIndexLocation = flagIndexOffset;
+	flagSubmesh.BaseVertexLocation = flagVertexOffset;
+
 
 	// Step 5
 	// Extract the vertex elements we are interested in and pack the
@@ -722,7 +731,8 @@ void ShapesApp::BuildShapeGeometry()
 		pyramid.Vertices.size() +
 		box2.Vertices.size() +
 		wedge.Vertices.size() +
-		diamond.Vertices.size();
+		diamond.Vertices.size() +
+		flag.Vertices.size();
 
 
 	// Step 6
@@ -772,6 +782,12 @@ void ShapesApp::BuildShapeGeometry()
 		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
 	}
 
+	for (size_t i = 0; i < flag.Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = flag.Vertices[i].Position;
+		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Pyramid color
+	}
+
 	
 
 	// step 7
@@ -784,6 +800,7 @@ void ShapesApp::BuildShapeGeometry()
 	indices.insert(indices.end(), std::begin(box2.GetIndices16()), std::end(box2.GetIndices16()));
 	indices.insert(indices.end(), std::begin(wedge.GetIndices16()), std::end(wedge.GetIndices16()));
 	indices.insert(indices.end(), std::begin(diamond.GetIndices16()), std::end(diamond.GetIndices16()));
+	indices.insert(indices.end(), std::begin(flag.GetIndices16()), std::end(flag.GetIndices16()));
 
 	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
@@ -817,6 +834,7 @@ void ShapesApp::BuildShapeGeometry()
 	geo->DrawArgs["box2"] = box2Submesh;
 	geo->DrawArgs["wedge"] = wedgeSubmesh;
 	geo->DrawArgs["diamond"] = diamondSubmesh;
+	geo->DrawArgs["flag"] = flagSubmesh;
 	
 
 
@@ -879,11 +897,11 @@ void ShapesApp::BuildFrameResources()
 }
 
 // Helper function to build any shape objects (Rotation is optional)
-void ShapesApp::BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float ZRotation)
+void ShapesApp::BuildShape(string shapeName, float ScaleX, float ScaleY, float ScaleZ, float OffsetX, float OffsetY, float OffsetZ, float xRotation, float yRotation, float ZRotation)
 {
 	auto boxRitem = std::make_unique<RenderItem>();
 	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(ScaleX, ScaleY, ScaleZ) * 
-	XMMatrixRotationY(ZRotation) *
+	XMMatrixRotationRollPitchYaw(xRotation, yRotation, ZRotation) *
 	XMMatrixTranslation(OffsetX, OffsetY, OffsetZ));
 	boxRitem->ObjCBIndex = mAllRitems.size();
 	boxRitem->Geo = mGeometries["shapeGeo"].get();
@@ -916,7 +934,7 @@ void ShapesApp::BuildRenderItems()
 	// Inner Building
 	BuildShape("box2", 6.0f, 7.0f, 8.0f, -5.0f, 4.0f, 0.0f);
 	// Inner Building Roof
-	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 11.8f);
+	BuildShape("pyramid", 6.0f, 3.5f, 6.0f, -5.0f, 9.25f, 0.0f, 0.0f);
 
 	
 
@@ -935,9 +953,56 @@ void ShapesApp::BuildRenderItems()
 	// Gate Decal
 	BuildShape("box2", 4.0f, 1.0f, 6.0f, 0.0f, 0.0f, -13.0f);
 	
-	BuildShape("wedge", -14.0f, -4.0f, -1.0f, 8.0f, 3.6f, -1.0f, 55.0f);
+	BuildShape("wedge", 8.0f, 5.25f, 1.0f, 0.0f, 3.0f, 8.5f, 22.0);
 
-	BuildShape("diamond", 1.0f, 1.0f, 1.0f, -20.0f, 9.0f, 0.0f);
+	//Fense
+	/*BuildShape("box", 9.0f, 1.0f, 1.0f, -8.0f, 3.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -11.5f, 1.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -4.0f, 1.0f, -20.0f);
+
+	BuildShape("box", 9.0f, 1.0f, 1.0f, 8.0f, 3.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 11.5f, 1.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 4.0f, 1.0f, -20.0f);
+
+	BuildShape("box", 1.0f, 1.0f, 41.0f, 13.0f, 3.0f, 0.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 5.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -18.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -12.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, -6.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 0.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 6.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 12.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 1.0f, 18.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 13.0f, 5.0f, 20.0f);
+
+	BuildShape("box", 1.0f, 1.0f, 41.0f, -13.0f, 3.0f, 0.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 5.0f, -20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -18.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -12.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, -6.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 0.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 6.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 12.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 1.0f, 18.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -13.0f, 5.0f, 20.0f);
+
+	BuildShape("box", 25.0f, 1.0f, 1.0f, 0.0f, 3.0f, 20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -10.0f, 1.0f, 20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, -5.0f, 1.0f, 20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 0.0f, 1.0f, 20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 5.0f, 1.0f, 20.0f);
+	BuildShape("box", 0.5f, 3.0f, 0.5f, 10.0f, 1.0f, 20.0f);*/
+
+	BuildShape("diamond", 1.0f, 1.0f, 1.0f, -13.0f, 7.5f, -20.0f, 4.7f, 0.0f, 0.0f);
+	BuildShape("diamond", 1.0f, 1.0f, 1.0f, -13.0f, 7.5f, 20.0f, 4.7f, 0.0f, 0.0f);
+	BuildShape("diamond", 1.0f, 1.0f, 1.0f, 13.0f, 7.5f, -20.0f, 4.7f, 0.0f, 0.0f);
+	BuildShape("diamond", 1.0f, 1.0f, 1.0f, 13.0f, 7.5f, 20.0f, 4.7f, 0.0f, 0.0f);
+
+	//Flagpole
+	BuildShape("cylinder", 1.0f, 1.0f, 1.0f, 5.0f, 1.0f, 0.0f);
+	BuildShape("cylinder", 0.5f, 12.0f, 0.5f, 5.0f, 7.5f, 0.0f);
+	BuildShape("flag", 3.0f, 1.0f, 2.0f, 7.0f, 11.5f, 0.0f, 4.7f, 0.0f, 0.0f);
+	
 
 
 	// All the render items are opaque.

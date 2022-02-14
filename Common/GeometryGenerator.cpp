@@ -568,6 +568,11 @@ GeometryGenerator::MeshData GeometryGenerator::CreateDiamond(float bottomRadius,
 	return CreateCylinder(bottomRadius, 1, height, 4, stackCount);
 }
 
+GeometryGenerator::MeshData GeometryGenerator::CreateTrianglePrism(float bottomRadius, float height, uint32 stackCount)
+{
+	return CreateCylinder(bottomRadius, 1, height, 3, stackCount);
+}
+
 GeometryGenerator::MeshData GeometryGenerator::CreateWedge(float width, float height, float depth, uint32 numSubdivisions)
 {
 	MeshData meshData;
