@@ -30,7 +30,8 @@ struct PassConstants
 struct Vertex
 {
     DirectX::XMFLOAT3 Pos;
-    DirectX::XMFLOAT4 Color;
+    DirectX::XMFLOAT3 Normal;
+    DirectX::XMFLOAT2 TexC;
 };
 
 // Step2: we usually use a circular array of three frame resource elements.The idea is that for frame n, the CPU will

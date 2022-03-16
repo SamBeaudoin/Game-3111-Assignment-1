@@ -753,55 +753,64 @@ void ShapesApp::BuildShapeGeometry()
 	for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = box.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::LightCoral);	// Box color
+		vertices[k].Normal = box.Vertices[i].Normal;
+		vertices[k].TexC = box.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < cylinder.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = cylinder.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::DarkGoldenrod);	// Cylinder color
+		vertices[k].Normal = cylinder.Vertices[i].Normal;
+		vertices[k].TexC = cylinder.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < cone.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = cone.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::HotPink);	// Cone color
+		vertices[k].Normal = cone.Vertices[i].Normal;
+		vertices[k].TexC = cone.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < pyramid.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = pyramid.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::LemonChiffon);	// Pyramid color
+		vertices[k].Normal = pyramid.Vertices[i].Normal;
+		vertices[k].TexC = pyramid.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < box2.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = box2.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Ivory);	// Box2 color
+		vertices[k].Normal = box2.Vertices[i].Normal;
+		vertices[k].TexC = box2.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < wedge.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = wedge.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::Lavender);	// Wedge color
+		vertices[k].Normal = wedge.Vertices[i].Normal;
+		vertices[k].TexC = wedge.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < diamond.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = diamond.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::SteelBlue);	// Diamond color
+		vertices[k].Normal = diamond.Vertices[i].Normal;
+		vertices[k].TexC = diamond.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < flag.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = flag.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::PeachPuff);	// Flag color
+		vertices[k].Normal = flag.Vertices[i].Normal;
+		vertices[k].TexC = flag.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < pipe.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = pipe.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(DirectX::Colors::MediumPurple);	// Pipe color
+		vertices[k].Normal = pipe.Vertices[i].Normal;
+		vertices[k].TexC = pipe.Vertices[i].TexC;
 	}
 
 	

@@ -1,3 +1,9 @@
-﻿  Week4-1-BoxUsingFrameResources.cpp
-E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(924,42): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-  Game-3111-Assignment-1.vcxproj -> E:\School Stuff\Game-W2022\Graphics\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
+﻿  GeometryGenerator.cpp
+C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\Common\GeometryGenerator.cpp(726,47): warning C4267: 'initializing': conversion from 'size_t' to 'GeometryGenerator::uint32', possible loss of data
+C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\Common\GeometryGenerator.cpp(791,47): warning C4267: 'initializing': conversion from 'size_t' to 'GeometryGenerator::uint32', possible loss of data
+C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\Common\GeometryGenerator.cpp(835,47): warning C4267: 'initializing': conversion from 'size_t' to 'GeometryGenerator::uint32', possible loss of data
+  FrameResource.cpp
+  Week4-1-BoxUsingFrameResources.cpp
+C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\Source\Week4-1-BoxUsingFrameResources.cpp(933,42): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+  Generating Code...
+  Game-3111-Assignment-1.vcxproj -> C:\Users\padc\OneDrive\Documents\GitHub\DirectX\Game-3111-Assignment-1\x64\Debug\Game-3111-Assignment-1.exe
